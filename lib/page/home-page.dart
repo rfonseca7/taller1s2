@@ -228,41 +228,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /*
-  void _calcularOperacion() {
-    var arreglo = operaciones.split(" ");
-    double resultado = 0;
-
-    if (arreglo[1].trim() == "+") {
-      resultado = double.parse(arreglo[0]) + double.parse(arreglo[2]);
-    }
-
-    if (arreglo[1].trim() == "-") {
-      resultado = double.parse(arreglo[0]) - double.parse(arreglo[2]);
-    }
-
-    if (arreglo[1].trim() == "x") {
-      resultado = double.parse(arreglo[0]) * double.parse(arreglo[2]);
-    }
-
-    if (arreglo[1].trim() == "÷") {
-      resultado = double.parse(arreglo[0]) / double.parse(arreglo[2]);
-    }
-
-    if (arreglo[1].trim() == "√") {
-      resultado = sqrt(double.parse(arreglo[0]));
-    }
-
-    if (arreglo[1].trim() == "²") {
-      resultado = pow(double.parse(arreglo[0]), 2);
-    }
-
-    setState(() {
-      listaResultados.add(Text("$resultado"));
-    });
-    print(arreglo);
-  }
-*/
   void _calcularOperacion() {
     try {
       do {
