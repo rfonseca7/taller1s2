@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String operaciones = "";
   String resultadoOperaciones = "";
+  List<Text> listaResultados = [];
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +27,18 @@ class _HomePageState extends State<HomePage> {
         Expanded(
           child: Container(
             color: Colors.cyan,
-            child: Row(
-              children: [
-                Text(resultadoOperaciones),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: listaResultados,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -62,8 +72,20 @@ class _HomePageState extends State<HomePage> {
                         });
                       },
                       child: Text("C")),
-                  ElevatedButton(onPressed: () {}, child: Text("SQRT")),
-                  ElevatedButton(onPressed: () {}, child: Text("^"))
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          operaciones += " √ ";
+                        });
+                      },
+                      child: Text("√")),
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          operaciones += " ² ";
+                        });
+                      },
+                      child: Text("x²"))
                 ],
               ),
               Row(
@@ -93,10 +115,10 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          operaciones += " / ";
+                          operaciones += " ÷ ";
                         });
                       },
-                      child: Text("/"))
+                      child: Text("÷"))
                 ],
               ),
               Row(
@@ -202,34 +224,35 @@ class _HomePageState extends State<HomePage> {
 
   void _calcularOperacion() {
     var arreglo = operaciones.split(" ");
+    double resultado = 0;
 
     if (arreglo[1].trim() == "+") {
-      var resultado = double.parse(arreglo[0]) + double.parse(arreglo[2]);
-      setState(() {
-        resultadoOperaciones = "$resultado";
-      });
+      resultado = double.parse(arreglo[0]) + double.parse(arreglo[2]);
     }
 
     if (arreglo[1].trim() == "-") {
-      var resultado = double.parse(arreglo[0]) - double.parse(arreglo[2]);
-      setState(() {
-        resultadoOperaciones = "$resultado";
-      });
+      resultado = double.parse(arreglo[0]) - double.parse(arreglo[2]);
     }
 
     if (arreglo[1].trim() == "x") {
-      var resultado = double.parse(arreglo[0]) * double.parse(arreglo[2]);
-      setState(() {
-        resultadoOperaciones = "$resultado";
-      });
+      resultado = double.parse(arreglo[0]) * double.parse(arreglo[2]);
     }
 
-    if (arreglo[1].trim() == "/") {
-      var resultado = double.parse(arreglo[0]) / double.parse(arreglo[2]);
-      setState(() {
-        resultadoOperaciones = "$resultado";
-      });
+    if (arreglo[1].trim() == "÷") {
+      resultado = double.parse(arreglo[0]) / double.parse(arreglo[2]);
     }
+
+    if (arreglo[1].trim() == "√") {
+      resultado = sqrt(double.parse(arreglo[0]));
+    }
+
+    if (arreglo[1].trim() == "²") {
+      resultado = pow(double.parse(arreglo[0]), 2);
+    }
+
+    setState(() {
+      listaResultados.add(Text("$resultado"));
+    });
     print(arreglo);
   }
 }
